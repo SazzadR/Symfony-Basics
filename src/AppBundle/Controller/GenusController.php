@@ -50,15 +50,17 @@ class GenusController extends Controller
      */
     public function showAction($genusName)
     {
-        $funFact = 'Octopuses can change the color of their body in just three-tenths of a second!';
+        $em = $this->getDoctrine()->getManager();
+        $genus = $em->getRepository('AppBundle:Genus')->findOneBy([
+            'name' => $genusName
+        ]);
+        if (!$genus) {
+            throw $this->createNotFoundException('No genus found!');
+        }
 
-        $this->get('logger')
-            ->info('Showing genus: '.$genusName);
-
-        return $this->render('genus/show.html.twig', array(
-            'name' => $genusName,
-            'funFact' => $funFact,
-        ));
+        return $this->render('genus/show.html.twig', [
+            'genus' => $genus
+        ]);
     }
 
     /**
