@@ -81,4 +81,9 @@ class Genus
     {
         $this->funFact = $funFact;
     }
+
+    public function getLastUpdatedAt()
+    {
+        return new \DateTime('-'.rand(1, 100));
+    }
 }
