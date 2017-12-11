@@ -7,8 +7,9 @@ AppBundle\Entity\Genus:
         isPublished: <boolean(75)>
 
 AppBundle\Entity\GenusNote:
-    genus_note_{1..100}:
+    genus.note_{1..100}:
         username: <userName()>
-        userAvatarFilename: '50% ? leanna.jpeg : rayan.jpeg'
+        userAvatarFilename: '50%? leanna.jpeg : rayan.jpeg'
         note: <paragraph()>
         createdAt: <dateTimeBetween('-6 months', 'now')>
+        genus: '@genus_*'

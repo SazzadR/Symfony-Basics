@@ -39,7 +39,7 @@ class GenusNote
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Genus")
-     * @ORM\JoinColumn(name="genus_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="genus_id", referencedColumnName="id", nullable=false)
      */
     private $genus;
 
