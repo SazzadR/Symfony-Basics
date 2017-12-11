@@ -37,6 +37,12 @@ class GenusNote
      */
     private $createdAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Genus")
+     * @ORM\JoinColumn(name="genus_id", referencedColumnName="id")
+     */
+    private $genus;
+
     public function getId()
     {
         return $this->id;
@@ -80,5 +86,15 @@ class GenusNote
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+    }
+
+    public function getGenus()
+    {
+        return $this->genus;
+    }
+
+    public function setGenus(Genus $genus)
+    {
+        $this->genus = $genus;
     }
 }
