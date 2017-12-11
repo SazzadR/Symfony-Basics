@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Genus;
+use AppBundle\Entity\GenusNote;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -25,8 +26,16 @@ class GenusController extends Controller
             $genus->setFunFact('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mollis tortor ut bibendum tristique.');
         }
 
+        $genusNote = new GenusNote();
+        $genusNote->setUsername('Aquaweaver');
+        $genusNote->setUserAvatarFilename('rayan.jpeg');
+        $genusNote->setNote('I counted 8 legs... as they wrapped around me');
+        $genusNote->setCreatedAt(new \DateTime('-1 month'));
+        $genusNote->setGenus($genus);
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($genus);
+        $em->persist($genusNote);
         $em->flush();
 
         return new Response('<html><body>Saved new genus with id ' . $genus->getId() . '</body></html>');
