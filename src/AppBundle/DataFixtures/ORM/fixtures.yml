@@ -5,3 +5,10 @@ AppBundle\Entity\Genus:
         speciesCount: <numberBetween(100, 100000)>
         funFact: 60%? <sentence()>
         isPublished: <boolean(75)>
+
+AppBundle\Entity\GenusNote:
+    genus_note_{1..100}:
+        username: <userName()>
+        userAvatarFilename: '50% ? leanna.jpeg : rayan.jpeg'
+        note: <paragraph()>
+        createdAt: <dateTimeBetween('-6 months', 'now')>
