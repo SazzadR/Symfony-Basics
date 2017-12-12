@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,6 +42,17 @@ class Genus
      * @ORM\Column(type="boolean")
      */
     private $isPublished = true;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\GenusNote", mappedBy="genus")
+     * @ORM\OrderBy({"createdAt"="DESC"})
+     */
+    private $notes;
+
+    public function __construct()
+    {
+        $this->notes = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -87,9 +99,6 @@ class Genus
         $this->funFact = $funFact;
     }
 
-    /**
-     * @param mixed $isPublished
-     */
     public function setIsPublished($isPublished): void
     {
         $this->isPublished = $isPublished;
@@ -98,5 +107,13 @@ class Genus
     public function getLastUpdatedAt()
     {
         return new \DateTime('-'.rand(1, 100));
+    }
+
+    /**
+     * @return ArrayCollection|GenusNote[]
+     */
+    public function getNotes()
+    {
+        return $this->notes;
     }
 }

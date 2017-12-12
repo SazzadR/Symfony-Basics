@@ -29,7 +29,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.5.9/vue.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/axios/0.17.1/axios.js"></script>
     <script>
-        var notesUrl = '{{ url('genus_show_notes', {'genusName': genus.name}) }}';
+        var notesUrl = '{{ url('genus_show_notes', {'name': genus.name}) }}';
 
         Vue.component('notes', {
             template: `
@@ -55,15 +55,23 @@
                     notes: []
                 }
             },
+            methods: {
+                getAllNotes: function () {
+                    let $this = this;
+                    axios.get(notesUrl)
+                        .then(function (response) {
+                            $this.notes = response.data.notes;
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                }
+            },
             mounted: function () {
-                let $this = this;
-                axios.get(notesUrl)
-                    .then(function (response) {
-                        $this.notes = response.data.notes;
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                var $_this = this;
+                setInterval(function () {
+                    $_this.getAllNotes();
+                }, 1000);
             }
         });
 
